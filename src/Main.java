@@ -24,8 +24,14 @@ public class Main {
             }
         ));
 
-        library.printBookTitles(library.getBooksCheaperThan(30));
+//        System.out.print("Maximalpreis: ");
+//        int price = scanner.nextInt();
+//        library.printBookTitles(library.getBooksCheaperThan(price));
+
         library.findMostExpensive(library.getBooksByTitles(new String[]{"1984","Animal Farm", "The Hobbit"}));
 
+//        System.out.print("Mindestseitenanzahl: ");
+//        int minPageCount = scanner.nextInt();
+//        library.printBookTitles(library.getBooksByMinPageCount(minPageCount));
     }
 }

@@ -88,4 +88,14 @@ public class Library {
         return mostExpensiveBook;
     }
 
+    public ArrayList<Book> getBooksByMinPageCount(int pageCount){
+        ArrayList<Book> foundBooks = new ArrayList<>();
+        for(Book book : this.books){
+            if(book.getPageCount() >= pageCount){
+                foundBooks.add(book);
+            }
+        }
+        return foundBooks;
+    }
+
 }
