@@ -24,4 +24,18 @@ public class Library {
             }
         }
     }
+
+    public float avgPageCount(String[] bookTitles){
+        float totalPageCount = 0;
+        int foundBooks = 0;
+        for(String title : bookTitles){
+            for(Book book : books){
+                if(Objects.equals(title, book.getTitle())){
+                    foundBooks++;
+                    totalPageCount+=book.getPageCount();
+                }
+            }
+        }
+        return totalPageCount /foundBooks;
+    }
 }
