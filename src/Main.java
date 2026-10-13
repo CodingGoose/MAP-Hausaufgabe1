@@ -23,5 +23,8 @@ public class Main {
                     "Animal Farm"
             }
         ));
+
+        library.printBookTitles(library.getBooksCheaperThan(30));
+
     }
 }

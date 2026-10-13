@@ -24,18 +24,50 @@ public class Library {
             }
         }
     }
-
-    public float avgPageCount(String[] bookTitles){
-        float totalPageCount = 0;
-        int foundBooks = 0;
+    private ArrayList<Book> getBooksByTitles(String[] bookTitles){
+        ArrayList<Book> found = new ArrayList<>();
         for(String title : bookTitles){
             for(Book book : books){
                 if(Objects.equals(title, book.getTitle())){
-                    foundBooks++;
-                    totalPageCount+=book.getPageCount();
+                    found.add(book);
                 }
             }
         }
-        return totalPageCount /foundBooks;
+        return found;
     }
+
+    public float avgPageCount(String[] bookTitles){
+        float totalPageCount = 0;
+        ArrayList<Book> foundBooks = getBooksByTitles(bookTitles);
+
+        for(Book book : foundBooks){
+            totalPageCount+=book.getPageCount();
+        }
+
+        return totalPageCount /foundBooks.size();
+    }
+
+    public void printBookTitles(){
+        for(Book book : this.books){
+            System.out.printf("%s\n", book.getTitle());
+        }
+    }
+    public void printBookTitles(ArrayList<Book> books){
+        for(Book book : books){
+            System.out.printf("%s\n", book.getTitle());
+        }
+    }
+
+    public ArrayList<Book> getBooksCheaperThan(int price){
+        ArrayList<Book> foundBooks = new ArrayList<>();
+        for(Book book : books){
+            if(book.getPrice() <= price){
+                foundBooks.add(book);
+            }
+        }
+        return foundBooks;
+    }
+
+
+
 }
