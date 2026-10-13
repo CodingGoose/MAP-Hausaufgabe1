@@ -1,5 +1,18 @@
+import java.util.Scanner;
+
 public class Main{
     public static void main(String[] args){
-        System.out.println("ba");
+        Library library = new Library();
+        library.addBook(new Book("Clean Code", "Robert Martin", 45, 464));
+        library.addBook(new Book("1984", "George Orwell", 18, 328));
+        library.addBook(new Book("Animal Farm", "George Orwell", 12, 112));
+        library.addBook(new Book("Java Basics", "Max Mueller", 35, 520));
+        library.addBook(new Book("The Hobbit", "J. R. R. Tolkien", 28, 310));
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Author: ");
+        String author = scanner.nextLine();
+        library.searchByAuthor(author);
+
     }
 }
