@@ -8,6 +8,9 @@ public class Library {
         this.books.add(book);
     }
 
+    public ArrayList<Book> getLibraryBooks(){
+        return books;
+    }
     public void searchByAuthor(String author){
         ArrayList<Book> found = new ArrayList<>();
         for(Book book : books){
@@ -24,7 +27,7 @@ public class Library {
             }
         }
     }
-    private ArrayList<Book> getBooksByTitles(String[] bookTitles){
+    public ArrayList<Book> getBooksByTitles(String[] bookTitles){
         ArrayList<Book> found = new ArrayList<>();
         for(String title : bookTitles){
             for(Book book : books){
@@ -68,6 +71,21 @@ public class Library {
         return foundBooks;
     }
 
-
+    public Book findMostExpensive(ArrayList<Book> books){
+        float maxPrice = 0;
+        Book mostExpensiveBook = null;
+        for(Book book : books){
+            if(book.getPrice() > maxPrice){
+                maxPrice=book.getPrice();
+                mostExpensiveBook=book;
+            }
+        }
+        if(maxPrice==0){
+            System.out.println("No books were found.");
+            return null;
+        }
+        System.out.printf("%s (%.0f Euro)\n", mostExpensiveBook.getTitle(), mostExpensiveBook.getPrice());
+        return mostExpensiveBook;
+    }
 
 }

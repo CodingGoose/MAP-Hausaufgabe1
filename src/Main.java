@@ -25,6 +25,7 @@ public class Main {
         ));
 
         library.printBookTitles(library.getBooksCheaperThan(30));
+        library.findMostExpensive(library.getBooksByTitles(new String[]{"1984","Animal Farm", "The Hobbit"}));
 
     }
 }
