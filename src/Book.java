@@ -19,7 +19,7 @@ public class Book {
         return author;
     }
 
-    public float getPrice() {
+    public int getPrice() {
         return price;
     }
 

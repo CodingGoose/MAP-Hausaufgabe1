@@ -98,4 +98,39 @@ public class Library {
         return foundBooks;
     }
 
+        public void findBooksInsideBudget(int budget){
+            ArrayList<BookPair> affordableBooks = new ArrayList<>();
+            // folosim indecsi ca sa evitam duplicate
+            for(int i=0; i<books.size()-1; i++ ){
+                int remainingMoney = budget - books.get(i).getPrice();
+                for(int j=i+1; j<books.size();j++){
+                    if(remainingMoney - books.get(j).getPrice() >= 0){
+                        affordableBooks.add(new BookPair(books.get(i), books.get(j)));
+                    }
+
+                }
+            }
+
+            if(affordableBooks.isEmpty()){
+                System.out.println("Keine Buehcerpaare fuer den gegebenen Budget gefunden");
+            } else {
+                BookPair maxPair= affordableBooks.getFirst();
+                int maxPrice=0;
+                for(BookPair pair : affordableBooks){
+                    if(pair.book1.getPrice() + pair.book2.getPrice() > maxPrice){
+                        maxPrice=pair.book1.getPrice() + pair.book2.getPrice();
+                        maxPair=pair;
+                    } else if(pair.book1.getPrice() + pair.book2.getPrice() == maxPrice){
+                        if(pair.book1.getPageCount() + pair.book2.getPageCount()
+                                > maxPair.book1.getPageCount()+maxPair.book2.getPageCount())
+                        {
+                            maxPrice=pair.book1.getPrice() + pair.book2.getPrice();
+                            maxPair=pair;
+                        }
+                    }
+                }
+                System.out.printf("%s + %s\n", maxPair.book1.getTitle(), maxPair.book2.getTitle());
+                System.out.printf("Gesamtpreis: %d\n",maxPair.book1.getPrice() + maxPair.book2.getPrice());
+            }
+        }
 }

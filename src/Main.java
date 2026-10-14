@@ -8,6 +8,7 @@ public class Main {
         library.addBook(new Book("Animal Farm", "George Orwell", 12, 112));
         library.addBook(new Book("Java Basics", "Max Mueller", 35, 520));
         library.addBook(new Book("The Hobbit", "J. R. R. Tolkien", 28, 310));
+        library.addBook(new Book("The Bible (Gold Edition)", "'God'", 18, 1200));
 
         Scanner scanner = new Scanner(System.in);
 
@@ -28,10 +29,14 @@ public class Main {
 //        int price = scanner.nextInt();
 //        library.printBookTitles(library.getBooksCheaperThan(price));
 
-        library.findMostExpensive(library.getBooksByTitles(new String[]{"1984","Animal Farm", "The Hobbit"}));
+//        library.findMostExpensive(library.getBooksByTitles(new String[]{"1984","Animal Farm", "The Hobbit"}));
 
 //        System.out.print("Mindestseitenanzahl: ");
 //        int minPageCount = scanner.nextInt();
 //        library.printBookTitles(library.getBooksByMinPageCount(minPageCount));
+
+        System.out.print("Budget: ");
+        int budget = scanner.nextInt();
+        library.findBooksInsideBudget(budget);
     }
 }
