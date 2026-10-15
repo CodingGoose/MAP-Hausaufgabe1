@@ -42,9 +42,8 @@ public class Library {
         return found;
     }
 
-    public float avgPageCount(ArrayList<String> bookTitles){
+    public float avgPageCount(ArrayList<Book> foundBooks){
         float totalPageCount = 0;
-        ArrayList<Book> foundBooks = getBooksByTitles(bookTitles);
 
         for(Book book : foundBooks){
             totalPageCount+=book.getPageCount();
@@ -87,7 +86,7 @@ public class Library {
             System.out.println("No books were found.");
             return null;
         }
-        System.out.printf("%s (%.0f Euro)\n", mostExpensiveBook.getTitle(), mostExpensiveBook.getPrice());
+        System.out.printf("%s (%d Euro)\n", mostExpensiveBook.getTitle(), mostExpensiveBook.getPrice());
         return mostExpensiveBook;
     }
 

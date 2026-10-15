@@ -12,68 +12,122 @@ public class Main {
         library.addBook(new Book("The Bible (Gold Edition)", "'God'", 18, 1200));
 
         Scanner scanner = new Scanner(System.in);
+        boolean running = true;
 
-        while(true) {
-            System.out.println("Welcome To The Library!");
-            System.out.println("What do you wanna do?");
-            System.out.println("1. Search Books By Author");
-            System.out.println("2. Calculate Avg Page Count of Books");
-            System.out.println("3. Find Books Under a Certain Price Limit");
-            System.out.println("4. Find Books With More THan X Pages");
-            System.out.println("5. Find A Book Pair Within A Certain Budget");
-            System.out.println("0. EXIT");
+        while (running) {
+            printMenu();
+            int input = readInt(scanner, "Your Choice: ");
 
-            int input;
-            while(true){
-                try{
-                    System.out.print("Your Choice: ");
-                    input = scanner.nextInt();
-
-                } catch (Exception e) {
-                    scanner.nextLine(); // ca si cin.get() ala din cpp din liceu
+            switch (input) {
+                case 0:
+                    running = false;
                     continue;
-                }
-                break;
-            }
-            scanner.nextLine(); // input buffer cleanup
-
-            switch(input){
                 case 1:
-                    System.out.print("Author: ");
-                    String author = scanner.nextLine();
-                    library.searchByAuthor(author);
+                    handleSearchByAuthor(library, scanner);
+                    break;
                 case 2:
-                    ArrayList<String> book_titles = new ArrayList<>();
-                    System.out.print("How many books: ");
-                    input= scanner.nextInt();
-                    scanner.nextLine(); // input buffer cleanup
-                    for(int i=0; i<input; i++) {
-                        String title = scanner.nextLine();
-                        book_titles.add(title);
-                        System.out.println(
-                                library.avgPageCount(book_titles)
-                        );
-                    }
+                    handleAvgPageCount(library, scanner);
+                    break;
                 case 3:
-//                    alalala
-
+                    handleBooksUnderPrice(library, scanner);
+                    break;
+                case 4:
+                    handleMostExpensiveBook(library, scanner);
+                    break;
+                case 5:
+                    handleMinPageCount(library, scanner);
+                    break;
+                case 6:
+                    handleBudgetSearch(library, scanner);
+                    break;
+                default:
+                    System.out.println("Invalid option.");
+                    break;
             }
 
+            waitForEnter(scanner);
+            clearScreen();
+        }
+    }
 
-            //        System.out.print("Maximalpreis: ");
-            //        int price = scanner.nextInt();
-            //        library.printBookTitles(library.getBooksCheaperThan(price));
+    private static void printMenu() {
+        System.out.println("Welcome To The Library!");
+        System.out.println("What do you wanna do?");
+        System.out.println("1. Search Books By Author");
+        System.out.println("2. Calculate Avg Page Count of Books");
+        System.out.println("3. Find Books Under a Certain Price Limit");
+        System.out.println("4. Find Most Expensive Book");
+        System.out.println("5. Find Books With More Than X Pages");
+        System.out.println("6. Find A Book Pair Within A Certain Budget");
+        System.out.println("0. EXIT");
+    }
 
-            //        library.findMostExpensive(library.getBooksByTitles(new String[]{"1984","Animal Farm", "The Hobbit"}));
+    private static void handleSearchByAuthor(Library library, Scanner scanner) {
+        System.out.print("Author: ");
+        String author = scanner.nextLine();
+        library.searchByAuthor(author);
+    }
 
-            //        System.out.print("Mindestseitenanzahl: ");
-            //        int minPageCount = scanner.nextInt();
-            //        library.printBookTitles(library.getBooksByMinPageCount(minPageCount));
+    private static void handleAvgPageCount(Library library, Scanner scanner) {
+        ArrayList<String> bookTitles = readBookTitles(scanner);
+        System.out.println(library.avgPageCount(library.getBooksByTitles(bookTitles)));
+    }
 
-            System.out.print("Budget: ");
-            int budget = scanner.nextInt();
-            library.findBooksInsideBudget(budget);
+    private static void handleBooksUnderPrice(Library library, Scanner scanner) {
+        int price = readInt(scanner, "Maximalpreis: ");
+        library.printBookTitles(library.getBooksCheaperThan(price));
+    }
 
+    private static void handleMostExpensiveBook(Library library, Scanner scanner) {
+        ArrayList<String> bookTitles = readBookTitles(scanner);
+        library.findMostExpensive(library.getBooksByTitles(bookTitles));
+    }
+
+    private static void handleMinPageCount(Library library, Scanner scanner) {
+        int minPageCount = readInt(scanner, "Mindestseitenanzahl: ");
+        library.printBookTitles(library.getBooksByMinPageCount(minPageCount));
+    }
+
+    private static void handleBudgetSearch(Library library, Scanner scanner) {
+        int budget = readInt(scanner, "Budget: ");
+        library.findBooksInsideBudget(budget);
+    }
+
+    // helpers
+
+    private static ArrayList<String> readBookTitles(Scanner scanner) {
+        int count = readInt(scanner, "How many books: ");
+        ArrayList<String> titles = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            System.out.print("Book title: ");
+            titles.add(scanner.nextLine());
+        }
+        return titles;
+    }
+
+    private static int readInt(Scanner scanner, String prompt) {
+        int input;
+        while (true) {
+            try {
+                System.out.print(prompt);
+                input = scanner.nextInt();
+                scanner.nextLine(); // input buffer cleanup applied automatically
+                return input;
+            } catch (Exception e) {
+                scanner.nextLine(); // clear invalid string from buffer
+                System.out.println("Invalid input. Please enter a number.");
+            }
+        }
+    }
+
+    private static void waitForEnter(Scanner scanner) {
+        System.out.println("\nPress enter to continue...");
+        scanner.nextLine();
+    }
+
+    private static void clearScreen() {
+        for (int i = 0; i < 30; i++) {
+            System.out.println();
         }
     }
 }
